@@ -1,4 +1,6 @@
 import { useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
+import { FaCheck, FaCross, FaEdit } from "react-icons/fa";
 
 function Home(){
 
@@ -33,26 +35,41 @@ function Home(){
               </button>
             </div>
 
-            {/* <ul>
-              <li>Hi</li>
-            </ul> */}
 
-            <ul className="flex flex-col items-center ">
+            <ul className="flex flex-col items-center px-2 mt-2  ">
                {todos.map((todo , key) => (
-                 <div className="bg-white text-black my-2">
-                    <li  key={key}>{todo}</li>
+                 <div className=" flex justify-between bg-white text-black  w-6/10 h-10 rounded-lg m-1 ">
+                    <li className="text-2xl "  key={key}>{todo}</li>
+                    <div className="flex justify center gap-8 mr-5">
+
+
+
+                      <button 
+                        className="bg-emerald-500 w-8 h-8 mt-1 flex justify-center items-center rounded-md ">
+                          <FaCheck/>
+                      </button>
+
+
+                      <button 
+                       className="bg-yellow-300 w-8 h-8 mt-1 flex justify-center items-center rounded-md ">
+                        <FaEdit/>
+                      </button>
+
+
+                      <button 
+                       className="bg-red-500 w-8 h-8 mt-1 flex justify-center items-center rounded-md ">
+                        <CloseIcon/>
+                      </button>
+
+
+                    </div>
+                    
+
                  </div>
                    
                ))}
     
             </ul>
-
-           
-           
-
-
-
-
            
         </>
     )
