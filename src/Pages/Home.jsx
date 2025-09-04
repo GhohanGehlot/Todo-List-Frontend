@@ -8,6 +8,8 @@ function Home(){
     const [value , setValue] = useState("");
     const [completed , setCompleted] = useState(false);
     const [edit , setEdit] = useState(false);
+    const [editIndex , setEditIndex] = useState(null);
+    const [editText , setEditText] = useState("");
     
     
     
@@ -23,41 +25,39 @@ function Home(){
 
     function isCompleted(index , todo){
         setCompleted(true);
-        setTodos(todos.filter( t =>  t[index] !== todo[index] ));
+        // setTodos(todos.filter( t =>  t!== todo )); 
+          setTodos((prev) => {
+        return [
+         ...prev.slice(0, index),
+         ...prev.slice(index + 1),
+       ]
+        }); 
         console.log(index);
         
         
     }
 
     function closed(index , todo){
-      setTodos(todos.filter(t => t[index] !== todo[index]));
+      setTodos((prev) => {
+        return [
+         ...prev.slice(0, index),
+         ...prev.slice(index + 1),
+       ]
+        }); 
     }
 
   
 
     function onEdit(index , todo){
-      setEdit(!edit);
-      
+      setEditIndex(index);
+      setEditText(todo);
 
-      console.log(edit);
-      if(edit){
-        setTodos(todos.map((t , i) => {if(i === index)
-           { return "aaa"
-             
-          
-          }
-           else return t
-          }
-           )
-          );
-      }
-      if(edit === false){
-        console.log(" I am inside ");
-      
-        
-      
     }
-      
+
+    function saveEdit(index){
+      setTodos(todo => todo.map((t, i) => (i === index ? editText : t )));
+      setEditIndex(null);
+      setEditText('');
     }
   
 
@@ -81,7 +81,16 @@ function Home(){
             <ul className="flex flex-col items-center px-2 mt-2  ">
                {todos.map((todo , index) => (
                  <div key={index} className=" flex justify-between bg-white text-black  w-6/10 h-10 rounded-lg m-1 ">
-                    <li className="text-2xl "  key={index} >{todo}</li>
+                    <li className="text-2xl "  key={index} >
+                      { editIndex === index ? 
+                       <input  type="text" 
+                               value={editText} 
+                              onChange={((e) => setEditText(e.target.value))}
+                              onBlur={() => saveEdit(index)}
+                              onKeyDown={(e) => e.key === "Enter" && saveEdit(index)}
+                              autoFocus
+                       /> : todo}
+                       </li>
                     <div className="flex justify center gap-8 mr-5">
 
 
