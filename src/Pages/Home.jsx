@@ -4,9 +4,12 @@ import { FaCheck, FaEdit } from "react-icons/fa";
 
 function Home(){
 
-    const [todos , setTodos] = useState(["gym" , "Work" , "Play"]);
+    const [todos , setTodos] = useState(["gym" ,"Work" , "Play"]);
     const [value , setValue] = useState("");
     const [completed , setCompleted] = useState(false);
+    const [edit , setEdit] = useState(false);
+    
+    
     
 
     function  handleClick(value){
@@ -30,6 +33,32 @@ function Home(){
       setTodos(todos.filter(t => t[index] !== todo[index]));
     }
 
+  
+
+    function onEdit(index , todo){
+      setEdit(!edit);
+      
+
+      console.log(edit);
+      if(edit){
+        setTodos(todos.map((t , i) => {if(i === index)
+           { return "aaa"
+             
+          
+          }
+           else return t
+          }
+           )
+          );
+      }
+      if(edit === false){
+        console.log(" I am inside ");
+      
+        
+      
+    }
+      
+    }
   
 
     return(
@@ -64,7 +93,10 @@ function Home(){
                       </button>
 
 
+
+
                       <button 
+                       onClick={() => onEdit(index , todo)}
                        className="bg-yellow-300 w-8 h-8 mt-1 flex justify-center items-center rounded-md ">
                         <FaEdit/>
                       </button>
